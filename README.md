@@ -15,10 +15,20 @@ be ignored (skipped).
 Note: this tool was made for X86_AMD64 architecture. To make it run on some other 
 architecture, you have to modify register names.
 
-Copyright(C) 2021, Fabmicro, LLC., Tyumen, Russia.
 
-Written by "Ruslan Zalata" <rz@fabmicro.ru>.
+Usage:
+	./nosyscall [-srb] syscall_num:arg_num=arg_val /path/to/program_to_be_traced
+	./nosyscall [-srb] syscall_number /path/to/program
+
+	-s - to skip given syscall, will return 0 to tracee
+	-r - to reject given syscall, will return -1 to tracee
+	-b - to block given syscall, will stop execution and quit
+	-t - don't do anything, just trace (print info when syscall is met).
+
+	A syscall can identified by 'syscall_num' number and one of its parameters
+	set by 'arg_num' and value 'arg_val'. There can be no more that 256 blocks set at once.
+
+Copyright (C) 2021, Fabmicro, LLC., Tyumen, Russia. Written by Ruslan Zalata <rz@fabmicro.ru>
 
 SPDX-License-Identifier: BSD-2-Clause
-
 
