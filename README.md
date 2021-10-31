@@ -15,7 +15,7 @@ be ignored (skipped).
 Note: this tool was made for X86_AMD64 architecture. To make it run on some other 
 architecture, you have to modify register names.
 
-
+```
 Usage:
 	./nosyscall [-srb] syscall_num:arg_num=arg_val /path/to/program_to_be_traced
 	./nosyscall [-srb] syscall_number /path/to/program
@@ -27,6 +27,7 @@ Usage:
 
 	A syscall can identified by 'syscall_num' number and one of its parameters
 	set by 'arg_num' and value 'arg_val'. There can be no more that 256 blocks set at once.
+```
 
 Copyright (C) 2021, Fabmicro, LLC., Tyumen, Russia. Written by Ruslan Zalata <rz@fabmicro.ru>
 
