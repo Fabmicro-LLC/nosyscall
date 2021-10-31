@@ -12,7 +12,7 @@ Linux app running on FreeBSD it gets to a deadlock or to undesired error code wh
 may not be handled in the app. To work-around this issue one of the syscalls has to 
 be ignored (skipped).
 
-And this is where nosyscall tool comes handy for. It runs a give program (tracee)
+And this is where nosyscall tool comes handy for. It runs a given program (tracee)
 intercepting all its system call entry and exits using PTRACE(2) mechanism. Once
 system call is catched it is matched against a set of rules defined in command
 line using ```-s``` (skip), ```-r``` (reject), ```-b``` (block) or ```-t``` (trace)
