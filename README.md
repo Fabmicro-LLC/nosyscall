@@ -26,7 +26,8 @@ Usage:
 	-t - don't do anything, just trace (print info when syscall is met).
 
 	A syscall can identified by 'syscall_num' number and one of its parameters
-	set by 'arg_num' and value 'arg_val'. There can be no more that 256 blocks set at once.
+	set by 'arg_num' and value 'arg_val'. There can be no more that 256 blocks set
+	at once.
 ```
 
 Copyright (C) 2021, Fabmicro, LLC., Tyumen, Russia. Written by Ruslan Zalata <rz@fabmicro.ru>
