@@ -177,7 +177,7 @@ void usage(char* prog)
 {
 	fprintf(stderr, "Usage:\n"
 		"\t%s [-srb] syscall_num:arg_num=arg_val /path/to/program_to_be_traced\n"
-		"\t%s [-srb] syscall_number /path/to/program\n\n"
+		"\t%s [-srb] syscall_number /path/to/program_to_be_traced\n\n"
 		"\t-s - to skip given syscall, will return 0 to tracee\n"
 		"\t-r - to reject given syscall, will return -1 to tracee\n"
 		"\t-b - to block given syscall, will stop execution and quit\n"

@@ -18,7 +18,7 @@ architecture, you have to modify register names.
 ```
 Usage:
 	./nosyscall [-srb] syscall_num:arg_num=arg_val /path/to/program_to_be_traced
-	./nosyscall [-srb] syscall_number /path/to/program
+	./nosyscall [-srb] syscall_number /path/to/program_to_be_traced
 
 	-s - to skip given syscall, will return 0 to tracee
 	-r - to reject given syscall, will return -1 to tracee
