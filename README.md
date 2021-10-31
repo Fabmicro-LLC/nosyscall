@@ -30,6 +30,13 @@ Usage:
 	at once.
 ```
 
+## Useful example:
+
+To run 1C:Enterprise (1C:Предприятие) Linux (x86-amd64) binary on FreeBSD use the following:
+```
+nosyscall -v -s 72:1=6 ./opt/1C/v8.3/x86_64/1cv8c
+```
+
 Copyright (C) 2021, Fabmicro, LLC., Tyumen, Russia. Written by Ruslan Zalata <rz@fabmicro.ru>
 
 SPDX-License-Identifier: BSD-2-Clause
