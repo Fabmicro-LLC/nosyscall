@@ -32,12 +32,10 @@
 #include <machine/reg.h>
 #include <signal.h>
 #include <sys/syscall.h>
+#include <sys/sysctl.h>
 
-#define	FBSD_SYS_nanosleep	240
+#define	FREEBSD_SYS_nanosleep	240
 #define LINUX_SYS_nanosleep	35
-
-//#define LINUX_SYS_fcntl		72
-//#define LINUX_SYS_flock		73
 
 #define	MODE_NONE		0
 #define	MODE_SKIP		1
@@ -58,6 +56,8 @@ struct block_syscall {
 
 
 struct block_syscall* block_syscall_list = NULL;
+
+int sys_nanosleep = 0;	// nanosleep() syscall number, depends on ABI 
 
 
 int addsyscall(char* str, int mode)
@@ -274,6 +274,29 @@ int main(int argc, char** argv)
 			exit(EXIT_FAILURE);
 		}
 
+		// Get ABI type
+
+		int mib[4];
+		char abi[32];
+		size_t len = sizeof(abi);
+		mib[0] = CTL_KERN;
+		mib[1] = KERN_PROC;
+		mib[2] = KERN_PROC_SV_NAME;
+		mib[3] = pid;
+
+		if(sysctl(mib, 4, abi, &len, NULL, 0) < 0) {
+			fprintf(stderr, "Failed to get ABI type: %s\n", strerror(errno));
+			exit(EXIT_FAILURE);
+		}
+
+		if(verbose)
+			fprintf(stderr, "PID: %d, ABI: %s\n", pid, abi);
+
+		if(strncmp(abi, "Linux", 5) == 0)
+			sys_nanosleep = LINUX_SYS_nanosleep;
+		else
+			sys_nanosleep = FREEBSD_SYS_nanosleep;
+
 		// Trace till syscall entry
 
 		while(ptrace (PT_TO_SCE, pid, (caddr_t) 1, 0) == 0) {
@@ -347,7 +370,7 @@ int main(int argc, char** argv)
 
 				case MODE_SKIP: {
 					// To skip a syscall we have to call some other harmless syscall like nanosleep() 
-					registers.r_rax = LINUX_SYS_nanosleep;
+					registers.r_rax = sys_nanosleep;
 					registers.r_rdi = 0;
 					registers.r_rsi = 0;
 					setregs(pid, &registers);
@@ -360,7 +383,7 @@ int main(int argc, char** argv)
 
 				case MODE_REJECT: {
 					// Same as to skip
-					registers.r_rax = LINUX_SYS_nanosleep;
+					registers.r_rax = sys_nanosleep;
 					registers.r_rdi = 0;
 					registers.r_rsi = 0;
 					setregs(pid, &registers);
